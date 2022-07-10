@@ -1,0 +1,171 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title> {{user.fullName}}</ion-title>
+        <app-profileitem slot="end" [user]="user"></app-profileitem>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ng-template #waitingData>
+        <ion-item *ngFor="let item of skeletonItems">
+            <ion-thumbnail slot="start">
+                <ion-skeleton-text></ion-skeleton-text>
+            </ion-thumbnail>
+            <ion-label>
+                <h3>
+                    <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                </h3>
+                <p>
+                    <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                </p>
+                <p>
+                    <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+                </p>
+            </ion-label>
+        </ion-item>
+    </ng-template>
+
+    <ng-container>
+        <ng-container *ngFor="let message of appMessages$ | async">
+            <ion-item *ngIf="message.messageType===messageTypes.VerifyMobile" (click)="openAccountDetails()">
+                <ion-label class="ion-text-wrap">
+                    <h2>Hang on!</h2>
+                    <p>
+                        Your mobile number is not confirmed - click here to go to account details and confirm your mobile.
+                    </p>
+                </ion-label>
+            </ion-item>
+
+            <ion-item *ngIf="message.messageType===messageTypes.AcceptNotifcations" (click)="enablePushNotifications()">
+                <ion-label class="ion-text-wrap">
+                    <h2>Enable notifications</h2>
+                    <p>
+                        Click here to push notifications - so you will not miss any opportunity!
+                    </p>
+                </ion-label>
+            </ion-item>
+
+            <ion-item *ngIf="message.messageType===messageTypes.DeniedNotifcations">
+                <ion-label class="ion-text-wrap">
+                    <h2>Notifications denied</h2>
+                    <p>
+                        Push notifications requires manual actions - remove denied access from the browser's setting
+                    </p>
+                </ion-label>
+            </ion-item>
+
+            <ion-item *ngIf="message.messageType===messageTypes.InstallApp" (click)="installPrompt()">
+                <ion-label class="ion-text-wrap">
+                    <h2>Add to home screen</h2>
+                    <p>
+                        Click here to add app to your home screen and Kuyua will work like an app - no app store needed and no download costs !!!
+                    </p>
+                </ion-label>
+            </ion-item>
+
+            <ion-item *ngIf="message.messageType===messageTypes.NewAppVersion" (click)="updateNewVersion()">
+                <ion-label class="ion-text-wrap">
+                    <h2>New version available</h2>
+                    <p>
+                        New version available of the app - click here to update
+                    </p>
+                </ion-label>
+            </ion-item>
+        </ng-container>
+    </ng-container>
+
+    <h1>Opportunities on market</h1>
+    <ion-segment value="descending" (ionChange)="opportunitySegmentChanged($event)">
+        <ion-segment-button value="descending">
+            <ion-label>Sort Descending</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="ascending">
+            <ion-label>Sort Ascending</ion-label>
+        </ion-segment-button>
+    </ion-segment>
+    <ng-container *ngIf="(buyingOpportunitiesPublished$ | async) as buyingOpportunities; else waitingData">
+        <ng-container *ngIf="buyingOpportunities.length >0; else nobuyingOpportunitiesPublishedItems">
+            <ion-card>
+                <ion-item-sliding #slidingItem *ngFor="let opportunity of buyingOpportunities">
+                    <ion-item (click)="contactSeller(opportunity)">
+                        <ion-badge *ngIf="opportunity.creationDate>user.lastLogout && opportunity.lastViewed===0" color="success" style="position:absolute;right:10px;top:10px;">
+                            new
+                        </ion-badge>
+                        <ion-thumbnail slot="start">
+                            <img alt="avatar" [src]="opportunity.photoURL" />
+                        </ion-thumbnail>
+                        <ion-label class="ion-text-wrap">
+                            <h2>{{opportunity.commodity}} - {{opportunity.commodityDetails}}</h2>
+                            <p> by {{opportunity.sellerUserDisplayName}}
+                            </p>
+                            <p> Posted {{opportunity.creationDate | date:'shortDate' }}
+                            </p>
+                            <p *ngIf="opportunity.countOfContacts>0">Last contact {{opportunity.lastContact | date:'short'}} </p>
+
+                        </ion-label>
+                    </ion-item>
+                </ion-item-sliding>
+            </ion-card>
+        </ng-container>
+        <ng-template #nobuyingOpportunitiesPublishedItems>
+            <ion-item>
+                <ion-thumbnail slot="start">
+                    <ion-icon style="font-size:400%" name="earth-outline"></ion-icon>
+                </ion-thumbnail>
+                <ion-label class="ion-text-wrap">
+                    <h2>No products advertsied yet</h2>
+                    <p>Goods that match your interest can be found here.</p>
+                </ion-label>
+            </ion-item>
+        </ng-template>
+    </ng-container>
+
+
+    <h1>Recently viewed</h1>
+    <ng-container *ngIf="(buyingOpportunitiesOfInterest$ | async) as buyingOpportunities; else waitingData">
+        <ng-container *ngIf="buyingOpportunities.length >0; else nobuyingOpportunitiesItems">
+            <ion-card>
+                <ion-item-sliding #slidingItem *ngFor="let opportunity of buyingOpportunities">
+
+                    <ion-item-options side="end">
+                        <ion-item-option color="danger" (click)="archiveBuyingOpportunities(opportunity,slidingItem)">
+                            <ion-icon slot="start" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
+                            Remove
+                        </ion-item-option>
+                    </ion-item-options>
+
+                    <ion-item (click)="contactSeller(opportunity)">
+                        <ion-badge *ngIf="opportunity.countOfContacts>0" style="position:absolute;right:10px;top:10px;">
+                            {{opportunity.countOfContacts}} x contacted
+                        </ion-badge>
+                        <ion-thumbnail slot="start">
+                            <img alt="avatar" [src]="opportunity.photoURL" />
+                        </ion-thumbnail>
+                        <ion-label class="ion-text-wrap">
+                            <h2>{{opportunity.commodity}} - {{opportunity.commodityDetails}}</h2>
+                            <p> by {{opportunity.sellerUserDisplayName}}
+
+                            </p>
+                            <p> Posted {{opportunity.creationDate | date:'shortDate' }}
+
+                                <p *ngIf="opportunity.countOfContacts>0">Last contact {{opportunity.lastContact | date:'shortDate'}} </p>
+                        </ion-label>
+                    </ion-item>
+                </ion-item-sliding>
+            </ion-card>
+        </ng-container>
+        <ng-template #nobuyingOpportunitiesItems>
+
+            <ion-item>
+                <ion-thumbnail slot="start">
+                    <ion-icon style="font-size:400%" name="earth-outline"></ion-icon>
+                </ion-thumbnail>
+                <ion-label class="ion-text-wrap">
+                    <h2>Let's look at produce!</h2>
+                    <p>Goods that you looked at earlier can be found here.</p>
+                </ion-label>
+            </ion-item>
+        </ng-template>
+    </ng-container>
+
+</ion-content>

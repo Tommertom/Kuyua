@@ -1,0 +1,345 @@
+// // Create and Deploy Your First Cloud Functions
+// // https://firebase.google.com/docs/functions/write-firebase-functions
+//
+// exports.helloWorld = functions.https.onRequest((request, response) => {
+//   functions.logger.info("Hello logs!", {structuredData: true});
+//   response.send("Hello from Firebase!");
+// });
+// firebase functions:config:set someservice.key="THE API KEY" someservice.id="THE CLIENT ID"
+var admin = require("firebase-admin");
+var nodemailer = require('nodemailer');
+var functions = require("firebase-functions");
+var templates = require('./templates');
+
+admin.initializeApp();
+
+var transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth: {
+        user: functions.config().gmail.email,
+        pass: functions.config().gmail.password
+    }
+});
+
+var kuyuaAdmin = 'tom.gruintjes@gmail.com';
+var adminToEmail = 'tom.gruintjes@gmail.com,jop.elschot@gmail.com, nik.perton@rabobank.nl, tom.gruintjes@rabobank.nl,C.D.A.vanderWoude@gmail.com';
+
+exports.sendEmailOnRegistration = functions.firestore
+    // context.params.userID  - context.params.docID
+    .document('users/{userID}/userdata/{docID}')
+    .onCreate(
+        (snap, context) => {
+            let email = snap.data().email;
+            let mobile = snap.data().whatsAppNr;
+            let fullName = snap.data().fullName;
+            if (email == undefined) {
+                email = 'noemail@kuyua.farm';
+            }
+
+            const mailOptionsToUser = {
+                from: kuyuaAdmin,
+                to: email,
+                bcc: adminToEmail,
+                subject: 'Welcome to Kuyua! ' + fullName,
+                html: templates.confirmationRegistrationMail()
+            };
+            transporter.sendMail(mailOptionsToUser, (error, data) => {
+                if (error) {
+                    console.log('Error mail to user', error, snap.data())
+                    return
+                }
+                console.log("Sent to user!", JSON.stringify(snap.data()))
+            });
+
+            const mailOptionsToAdmin = {
+                from: kuyuaAdmin,
+                to: adminToEmail,
+                subject: 'Kuyua user registration - ' + fullName + ' - ' + email + ' - ' + mobile,
+                html: `<p>${email} -   ${mobile} - ${fullName} </p>` //
+            };
+            return transporter.sendMail(mailOptionsToAdmin, (error, data) => {
+                if (error) {
+                    console.log('Error mail to admin', error, snap.data())
+                    return
+                }
+                console.log("Sent to admin!", JSON.stringify(snap.data()))
+            });
+        });
+
+
+exports.sendEmailOnInterest = functions.firestore
+    .document('users/{userID}/postedinterests/{docID}')
+    .onCreate(
+        (snap, context) => {
+            let mobile = snap.data().buyerWhatsAppNr;
+            let fullName = snap.data().buyerDisplayName;
+            let productionCommodity = snap.data().productionCommodity;
+            let sellerEmail = snap.data().sellerEmail;
+            let productionID = snap.data().productionID;
+            let buyerID = snap.data().buyerUserID;
+
+            let url = 'https://kuyua.com/login/' + sellerEmail + '/viewbuyer/' + snap.data().productionID + '-' + buyerID;
+
+
+            //
+            // Notifications
+            //
+            // const FCMToken = admin.database().ref(`/FCMTokens/${userId}`).once('value');
+            /*
+
+const followerUid = context.params.followerUid;
+const followedUid = context.params.followedUid;
+// If un-follow we exit the function.
+
+// Get the list of device notification tokens.
+const getDeviceTokensPromise = admin.database()
+.ref(`/users/${followedUid}/notificationTokens`).once('value');
+
+// Get the follower profile.
+const getFollowerProfilePromise = admin.auth().getUser(followerUid);
+
+// The snapshot to the user's tokens.
+let tokensSnapshot;
+
+// The array containing all the user's tokens.
+let tokens;
+
+const results = await Promise.all([getDeviceTokensPromise, getFollowerProfilePromise]);
+tokensSnapshot = results[0];
+const follower = results[1];
+
+// Check if there are any device tokens.
+if (!tokensSnapshot.hasChildren()) {
+return functions.logger.log(
+'There are no notification tokens to send to.'
+);
+}
+functions.logger.log(
+'There are',
+tokensSnapshot.numChildren(),
+'tokens to send notifications to.'
+);
+functions.logger.log('Fetched follower profile', follower);
+
+// Notification details.
+const payload = {
+notification: {
+title: 'You have a new follower!',
+body: `${follower.displayName} is now following you.`,
+icon: follower.photoURL
+}
+};
+
+// Listing all tokens as an array.
+tokens = Object.keys(tokensSnapshot.val());
+// Send notifications to all tokens.
+const response = await admin.messaging().sendToDevice(tokens, payload);
+// For each message check if there was an error.
+const tokensToRemove = [];
+response.results.forEach((result, index) => {
+const error = result.error;
+if (error) {
+functions.logger.error(
+'Failure sending notification to',
+tokens[index],
+error
+);
+// Cleanup the tokens who are not registered anymore.
+if (error.code === 'messaging/invalid-registration-token' ||
+error.code === 'messaging/registration-token-not-registered') {
+tokensToRemove.push(tokensSnapshot.ref.child(tokens[index]).remove());
+}
+}
+});
+return Promise.all(tokensToRemove);
+*/
+
+            if (sellerEmail == undefined) {
+                sellerEmail = 'noemail@kuyua.farm';
+            }
+
+            const mailOptions = {
+                from: kuyuaAdmin,
+                to: sellerEmail,
+                bcc: 'tom.gruintjes@gmail.com',
+                subject: 'Kuyua Alert - interest in your products! ' + productionCommodity,
+                html: templates.productionInterestMail()
+                    .replace(/_FULLNAME/g, fullName)
+                    .replace(/_URL/g, url)
+                    .replace(/_PRODUCTION/g, productionCommodity)
+            };
+            return transporter.sendMail(mailOptions, (error, data) => {
+                if (error) {
+                    console.log('Error mail to interested user', error, snap.data())
+                    return
+                }
+            });
+        }
+    )
+
+
+// https://github.com/firebase/functions-samples/tree/main/authorized-https-endpoint/functions
+
+const express = require('express');
+const cookieParser = require('cookie-parser')();
+const cors = require('cors')({ origin: true });
+const app = express();
+const publicapp = express();
+
+// Express middleware that validates Firebase ID Tokens passed in the Authorization HTTP header.
+// The Firebase ID token needs to be passed as a Bearer token in the Authorization HTTP header like this:
+// `Authorization: Bearer <Firebase ID Token>`.
+// when decoded successfully, the ID Token content will be added as `req.user`.
+const validateFirebaseIdToken = async(req, res, next) => {
+    functions.logger.log('Check if request is authorized with Firebase ID token');
+
+    if ((!req.headers.authorization || !req.headers.authorization.startsWith('Bearer ')) &&
+        !(req.cookies && req.cookies.__session)) {
+        functions.logger.error(
+            'No Firebase ID token was passed as a Bearer token in the Authorization header.',
+            'Make sure you authorize your request by providing the following HTTP header:',
+            'Authorization: Bearer <Firebase ID Token>',
+            'or by passing a "__session" cookie.'
+        );
+        res.status(403).send('Unauthorized');
+        return;
+    }
+
+    let idToken;
+    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
+        functions.logger.log('Found "Authorization" header');
+        // Read the ID Token from the Authorization header.
+        idToken = req.headers.authorization.split('Bearer ')[1];
+    } else if (req.cookies) {
+        functions.logger.log('Found "__session" cookie');
+        // Read the ID Token from cookie.
+        idToken = req.cookies.__session;
+    } else {
+        // No cookie
+        res.status(403).send('Unauthorized');
+        return;
+    }
+
+    try {
+        const decodedIdToken = await admin.auth().verifyIdToken(idToken);
+        functions.logger.log('ID Token correctly decoded', decodedIdToken);
+        req.user = decodedIdToken;
+        next();
+        return;
+    } catch (error) {
+        functions.logger.error('Error while verifying Firebase ID token:', error);
+        res.status(403).send('Unauthorized!');
+        return;
+    }
+};
+
+publicapp.use(cors);
+
+
+app.use(cors);
+app.use(cookieParser);
+app.use(validateFirebaseIdToken);
+app.get('/getcode/:email/:uid', (req, res) => {
+    const confirmCode = Math.floor(1000 + Math.random() * 9000); // 4 digit code
+
+    if (req.params.uid === undefined || req.params.email === undefined) {
+        res.status(403).send('Unauthorized!');
+        return;
+    }
+
+    //  console.log('Confirmcode', confirmCode, 'code' + req.params.id)
+    admin.firestore().collection('confirmcodes')
+        .doc(req.params.uid)
+        .set({ confirmCode, email: req.params.email, age: Date.now(), emailConfirmed: false })
+        .catch(error => {
+            console.log('Error writing confirmationCode', confirmCode)
+        })
+
+    let url = 'https://us-central1-kuyua-2199c.cloudfunctions.net/publicapp/confirmcode/' + req.params.uid + '/' + confirmCode + '?browser=yes';
+    // https://us-central1-kuyua-2199c.cloudfunctions.net/app/confirmcode/xQCR4UZJBpMGLBvnsaqqRwyQvsQ2/1247?browser=yes
+
+    /*
+<tr>
+                                      <td style="color: rgb(0,153,102); font-size:30px; font-family: 'Lato-Light',Lato, sans-serif;line-height: 55px" align="center" valign="middle">
+                                          Or click this <a href="_URL">link</a> to confirm via one-click!
+                                      </td>
+                                  </tr>
+
+*/
+
+    const mailOptions = {
+        from: kuyuaAdmin,
+        to: req.params.email,
+        bcc: 'tom.gruintjes@gmail.com',
+        subject: 'Kuyua code - ' + confirmCode,
+        html: templates.codeConfirmationMail()
+            .replace(/_CODE/g, confirmCode)
+            .replace(/_URL/g, url)
+            .replace(/_UID/g, req.params.uid) //
+    };
+    transporter.sendMail(mailOptions, (error, data) => {
+        if (error) {
+            console.log('Error confirmCode mail ', error, snap.data())
+            return
+        }
+    });
+
+    res.send(`{"code": "${confirmCode}"}`);
+
+});
+
+const confirmCode = (uid, codeReceived) => {
+
+}
+
+app.get('/confirmcode/:uid/:code', (req, res) => {
+    let sendResult = '{"result":false}';
+
+    if (req.params.uid === undefined || req.params.code === undefined) {
+        res.status(403).send('Unauthorized!');
+        return;
+    }
+
+    admin.firestore().collection('confirmcodes')
+        .doc(req.params.uid)
+        .get()
+        .then(snapshot => {
+            const data = snapshot.data();
+            console.log('Confirming', req.params.code, data.confirmCode, data.confirmCode == req.params.code);
+
+            if (data.confirmCode == req.params.code) {
+                //  console.log('Confirmresult is true');
+                sendResult = '{"result":true}';
+                admin.firestore().collection('confirmcodes')
+                    .doc(req.params.uid)
+                    .set({ emailConfirmed: true }, { merge: true });
+
+                const mailOptions = {
+                    from: kuyuaAdmin,
+                    to: data.email,
+                    bcc: 'tom.gruintjes@gmail.com',
+                    subject: 'Kuyua - confirmed email ',
+                    html: templates.emailConfirmedMail()
+
+                };
+                transporter.sendMail(mailOptions, (error, data) => {
+                    if (error) {
+                        console.log('Error emailConfirmedMail mail ', error, snap.data())
+                        return
+                    }
+                });
+            }
+        })
+        .catch(err => {})
+        .finally(() => {
+            if (req.query.browser == 'yes') {
+                res.send(templates.emailConfirmedMail())
+            } else {
+                res.send(sendResult);
+            }
+        })
+});
+
+exports.app = functions.https.onRequest(app);

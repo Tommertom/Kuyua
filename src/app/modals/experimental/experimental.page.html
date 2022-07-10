@@ -1,0 +1,19 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="end" (click)="closeModal()">
+            close
+        </ion-buttons>
+
+        <ion-title>Experimental features</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-button (click)="exportUserList()">Export userlist</ion-button>
+    <br>
+    <ion-button (click)="downloadAllOpportunities()">Download all opportunities</ion-button>
+    <br>
+    <ion-button disabled="true" (click)="deleteUser()">Delete account (disabled)</ion-button>
+
+</ion-content>

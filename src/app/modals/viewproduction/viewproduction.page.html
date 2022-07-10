@@ -1,0 +1,61 @@
+<ion-header>
+    <ion-toolbar>
+
+        <ion-buttons *ngIf="newForm?.valid" slot="end" (click)="closeAndSaveModal()">
+            close
+        </ion-buttons>
+        <ion-buttons slot="start" (click)="cancelModal()">
+            cancel
+        </ion-buttons>
+
+        <ion-title>{{newForm.controls.details.value}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+    <br>
+    <ion-item>
+        <ion-thumbnail slot="start">
+            <img alt="avatar" [src]="production.photoURL" />
+        </ion-thumbnail>
+        <ion-label>
+            <h2>{{newForm.controls.commodityName.value}}</h2>
+            <p> {{ newForm.controls.details.value}} </p>
+        </ion-label>
+    </ion-item>
+
+    <form [formGroup]="newForm">
+
+        <ion-item *ngIf="!production.archived && !production.isSold">
+            <ion-label>Mark for sale</ion-label>
+            <ion-toggle [checked]="production.isForSale" formControlName="isForSale"></ion-toggle>
+        </ion-item>
+
+        <br>
+
+
+        <ion-item>
+            <ion-label position="floating">Description</ion-label>
+            <ion-input clearInput formControlName="commodityName"></ion-input>
+        </ion-item>
+
+
+        <ion-item>
+            <ion-label position="floating">Additional details </ion-label>
+            <ion-input clearInput formControlName="details"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="floating">Available for sale (kg) </ion-label>
+            <ion-input formControlName="expectedQuantity"></ion-input>
+        </ion-item>
+
+    </form>
+
+    <ion-button expand="full" color="secondary " (click)="shareBuyingOpportunity(production) ">Recommend to friends!
+        <ion-icon slot="end" name="share"></ion-icon>
+    </ion-button>
+
+
+</ion-content>

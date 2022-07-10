@@ -1,0 +1,291 @@
+{
+    "plots": [{
+            "plotID": "1",
+            "GPS": {
+                "lat": 0.3208730561416851,
+                "lng": 32.580959738168175
+            },
+            "description": "Desc1",
+            "userID": ""
+        },
+        {
+            "plotID": "2",
+            "GPS": {
+                "lat": 0.059556,
+                "lng": 32.468800
+            },
+            "description": "Desc2",
+            "userID": ""
+        },
+        {
+            "plotID": "3",
+            "GPS": {
+                "lat": 0.33166462255251855,
+                "lng": 32.5095446355106
+            },
+            "description": "Desc3",
+            "userID": ""
+        }
+    ],
+    "productions": [{
+            "productionID": "1",
+            "commodityID": "1",
+            "details": "0",
+            "expectedQuantity": 0,
+            "productionEnd": 0,
+            "productionStart": 0,
+            "isForSale": true,
+            "isSold": false,
+            "plotID": "1",
+            "numberOfPotentialBuyers": 5
+        },
+        {
+            "productionID": "2",
+            "commodityID": "2",
+            "details": "0",
+            "expectedQuantity": 0,
+            "productionEnd": 0,
+            "productionStart": 0,
+            "isForSale": true,
+            "isSold": false,
+            "plotID": "1",
+            "numberOfPotentialBuyers": 5
+        },
+        {
+            "productionID": "3",
+            "commodityID": "1",
+            "details": "0",
+            "expectedQuantity": 0,
+            "productionEnd": 0,
+            "productionStart": 0,
+            "isForSale": true,
+            "isSold": false,
+            "plotID": "2",
+            "numberOfPotentialBuyers": 5
+        },
+        {
+            "productionID": "4",
+            "commodityID": "2",
+            "details": "0",
+            "expectedQuantity": 0,
+            "productionEnd": 0,
+            "productionStart": 0,
+            "isForSale": true,
+            "isSold": false,
+            "plotID": "2",
+            "numberOfPotentialBuyers": 5
+        }
+    ],
+    "buyinginterests": [{
+            "interestID": "0",
+            "interestUserID": "0",
+            "whatsAppNr": "0",
+            "displayName": "John Doe 1",
+            "buyingCurrency": "UGX",
+            "buyingPrice": "120.000",
+            "buyingDate": "0",
+            "productionID": "1"
+        },
+        {
+            "interestID": "1",
+            "interestUserID": "0",
+            "whatsAppNr": "0",
+            "displayName": "John Doe 2",
+            "buyingCurrency": "UGX",
+            "buyingPrice": "120.000",
+            "buyingDate": "0",
+            "productionID": "1"
+        },
+        {
+            "interestID": "2",
+            "interestUserID": "0",
+            "whatsAppNr": "0",
+            "displayName": "John Doe 3",
+            "buyingCurrency": "UGX",
+            "buyingPrice": "120.000",
+            "buyingDate": "0",
+            "productionID": "1"
+        },
+        {
+            "interestID": "3",
+            "interestUserID": "0",
+            "whatsAppNr": "0",
+            "displayName": "John Doe 4",
+            "buyingCurrency": "UGX",
+            "buyingPrice": "120.000",
+            "buyingDate": "0",
+            "productionID": "1"
+        },
+        {
+            "interestID": "4",
+            "interestUserID": "0",
+            "whatsAppNr": "0",
+            "displayName": "John Doe 5",
+            "buyingCurrency": "UGX",
+            "buyingPrice": "120.000",
+            "buyingDate": "0",
+            "productionID": "1"
+        },
+        {
+            "interestID": "5",
+            "interestUserID": "0",
+            "whatsAppNr": "0",
+            "displayName": "John Doe 6",
+            "buyingCurrency": "UGX",
+            "buyingPrice": "120.000",
+            "buyingDate": "0",
+            "productionID": "3"
+        },
+        {
+            "interestID": "6",
+            "interestUserID": "0",
+            "whatsAppNr": "0",
+            "displayName": "John Doe 7",
+            "buyingCurrency": "UGX",
+            "buyingPrice": "120.000",
+            "buyingDate": "0",
+            "productionID": "3"
+        },
+        {
+            "interestID": "0",
+            "interestUserID": "0",
+            "whatsAppNr": "0",
+            "displayName": "John Doe 8",
+            "buyingCurrency": "UGX",
+            "buyingPrice": "120.000",
+            "buyingDate": "0",
+            "productionID": "2"
+        }
+    ],
+    "buyingopportunities": [{
+            "opportunityID": "1",
+            "commodity": "0",
+            "commodityDetails": "0",
+            "commodityUnit": "0",
+            "commodityQuantity": "0",
+            "commodityUnitPrice": "0",
+            "commodityUnitCurrency": "0",
+            "productionEnd": "0",
+            "plotGPS": "0",
+            "userDisplayName": "0",
+            "userWhatsAppNr": "0",
+            "buyingNeedID": "0",
+            "userIsInterested": true,
+            "flagFavorite": false
+        },
+        {
+            "opportunityID": "2",
+            "commodity": "0",
+            "commodityDetails": "0",
+            "commodityUnit": "0",
+            "commodityQuantity": "0",
+            "commodityUnitPrice": "0",
+            "commodityUnitCurrency": "0",
+            "productionEnd": "0",
+            "plotGPS": "0",
+            "userDisplayName": "0",
+            "userWhatsAppNr": "0",
+            "buyingNeedID": "0",
+            "userIsInterested": true,
+            "flagFavorite": false
+        },
+        {
+            "opportunityID": "3",
+            "commodity": "0",
+            "commodityDetails": "0",
+            "commodityUnit": "0",
+            "commodityQuantity": "0",
+            "commodityUnitPrice": "0",
+            "commodityUnitCurrency": "0",
+            "productionEnd": "0",
+            "plotGPS": "0",
+            "userDisplayName": "0",
+            "userWhatsAppNr": "0",
+            "buyingNeedID": "0",
+            "userIsInterested": true,
+            "flagFavorite": false
+        },
+        {
+            "opportunityID": "2",
+            "commodity": "0",
+            "commodityDetails": "0",
+            "commodityUnit": "0",
+            "commodityQuantity": "0",
+            "commodityUnitPrice": "0",
+            "commodityUnitCurrency": "0",
+            "productionEnd": "0",
+            "plotGPS": "0",
+            "userDisplayName": "0",
+            "userWhatsAppNr": "0",
+            "buyingNeedID": "",
+            "userIsInterested": true,
+            "flagFavorite": false
+        },
+        {
+            "opportunityID": "3",
+            "commodity": "0",
+            "commodityDetails": "0",
+            "commodityUnit": "0",
+            "commodityQuantity": "0",
+            "commodityUnitPrice": "0",
+            "commodityUnitCurrency": "0",
+            "productionEnd": "0",
+            "plotGPS": "0",
+            "userDisplayName": "0",
+            "userWhatsAppNr": "0",
+            "buyingNeedID": "",
+            "userIsInterested": true,
+            "flagFavorite": false
+        }
+    ],
+    "prices": [{
+            "priceID": "0",
+            "priceDate": "0",
+            "pricePerUnit": "0",
+            "priceCurrency": "0",
+            "commodityID": "1"
+        },
+        {
+            "priceID": "1",
+            "priceDate": "0",
+            "pricePerUnit": "0",
+            "priceCurrency": "0",
+            "commodityID": "2"
+        },
+        {
+            "priceID": "2",
+            "priceDate": "0",
+            "pricePerUnit": "0",
+            "priceCurrency": "0",
+            "commodityID": "3"
+        },
+        {
+            "priceID": "3",
+            "priceDate": "0",
+            "pricePerUnit": "0",
+            "priceCurrency": "0",
+            "commodityID": "3"
+        },
+        {
+            "priceID": "4",
+            "priceDate": "0",
+            "pricePerUnit": "0",
+            "priceCurrency": "0",
+            "commodityID": "3"
+        },
+        {
+            "priceID": "5",
+            "priceDate": "0",
+            "pricePerUnit": "0",
+            "priceCurrency": "0",
+            "commodityID": "1"
+        },
+        {
+            "priceID": "6",
+            "priceDate": "0",
+            "pricePerUnit": "0",
+            "priceCurrency": "0",
+            "commodityID": "5"
+        }
+    ]
+}

@@ -1,0 +1,26 @@
+  <ng-container *ngIf="foundLastMobile">
+                <b>Login using SMS</b>
+                <br><br>
+                <ion-item>
+                    <ion-input readonly type="email" [(ngModel)]="phoneNumber" placeholder="Enter your mobile number with country code">
+                    </ion-input>
+                </ion-item>
+
+                <div id="recaptcha-container">
+                    <div id="send-confirm-button"></div>
+                </div>
+                <ng-container *ngIf="!showConfirmbutton">
+                    <ion-item>
+                        <ion-label position="stacked">Enter confirmation code received from SMS</ion-label>
+                        <ion-input type="text" [(ngModel)]="verifierCode" placeholder="Enter verifier code"></ion-input>
+                    </ion-item>
+                    <br><br>
+                    <ion-button (click)="confirmSMSCode()">Check code</ion-button>
+                    <ion-button (click)="cancelConfirmSMSCode()">Cancel</ion-button>
+                </ng-container>
+
+                <ion-button expand="block" *ngIf="showConfirmbutton" size="small" class="ion-no-margin" (click)="sendConfirmationCode()">
+                    <ion-icon slot="start" name="phone-portrait-outline"></ion-icon>
+                    Send SMS
+                </ion-button>
+            </ng-container>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw-loader.js');
+            });
+        }
+    </script>
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+
+            console.log('DATALAYER', dataLayer);
+            dataLayer.push({
+                'event': 'kuyua_landing'
+            });
+        })(window, document, 'script', 'dataLayer', 'G-SCSKN71MGZ');
+
+        console.log('CRAP');
+    </script>
+    <!-- End Google Tag Manager -->
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=G-SCSKN71MGZ" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <h1>Privacy </h1>
+    <p>Kuyua is in beta. We value your privacy like we value ours. We will not resell your data, not disclose to third parties and you can remove your data by removing your account or just do not signup.
+    </p>https://www.googletagmanager.com/gtag/js?l=dataLayer&id=G-SCSKN71MGZ
+
+
+</body>
+
+
+</html>

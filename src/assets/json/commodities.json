@@ -1,0 +1,69 @@
+{
+    "items": [{
+            "commodityID": "1",
+            "name": "banana",
+            "description": "Bananas",
+            "photoURL": "assets/img/commodities/banana.jpg"
+        },
+        {
+            "commodityID": "2",
+            "name": "beans",
+            "description": "Beans",
+            "photoURL": "assets/img/commodities/beans.jpg"
+        },
+        {
+            "commodityID": "3",
+            "name": "maize",
+            "description": "Maize",
+            "photoURL": "assets/img/commodities/maize.jpg"
+        },
+        {
+            "commodityID": "4",
+            "name": "groundnuts",
+            "description": "Groundnuts",
+            "photoURL": "assets/img/commodities/groundnuts.jpg"
+        },
+        {
+            "commodityID": "5",
+            "name": "millet",
+            "description": "Millet",
+            "photoURL": "assets/img/commodities/millet.jpg"
+        },
+        {
+            "commodityID": "6",
+            "name": "onions",
+            "description": "Onions",
+            "photoURL": "assets/img/commodities/onions.jpg"
+        },
+        {
+            "commodityID": "7",
+            "name": "tomato",
+            "description": "Tomato",
+            "photoURL": "assets/img/commodities/tomato.jpg"
+        },
+        {
+            "commodityID": "8",
+            "name": "plantain",
+            "description": "Plantain",
+            "photoURL": "assets/img/commodities/plantain.jpg"
+        },
+        {
+            "commodityID": "9",
+            "name": "rice",
+            "description": "Rice",
+            "photoURL": "assets/img/commodities/rice.jpg"
+        },
+        {
+            "commodityID": "10",
+            "name": "sunflowerseeds",
+            "description": "Sunflower Seeds",
+            "photoURL": "assets/img/commodities/sunflowerseeds.jpg"
+        },
+        {
+            "commodityID": "11",
+            "name": "peanuts",
+            "description": "Peanuts",
+            "photoURL": "assets/img/commodities/peanuts.jpg"
+        }
+    ]
+}

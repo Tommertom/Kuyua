@@ -1,0 +1,63 @@
+{
+    "items": [{
+            "countryName": "The Netherlands",
+            "countryID": "NL",
+            "phoneCode": "+31",
+            "currency": "EUR",
+            "defaultGPS": {
+                "lat": 52.377956,
+                "lng": 4.897070
+            },
+            "defaultLanguage": "EN",
+            "flagPictureURL": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Flag_of_the_Netherlands.svg/510px-Flag_of_the_Netherlands.svg.png"
+        },
+        {
+            "countryName": "Albania",
+            "countryID": "AL",
+            "phoneCode": "+355",
+            "currency": "LEK",
+            "defaultGPS": {
+                "lat": 52.377956,
+                "lng": 4.897070
+            },
+            "defaultLanguage": "EN",
+            "flagPictureURL": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Flag_of_Albania.svg/476px-Flag_of_Albania.svg.png"
+        },
+        {
+            "countryName": "Kenya",
+            "countryID": "KE",
+            "phoneCode": "+254",
+            "currency": "KSH",
+            "defaultGPS": {
+                "lat": -1.286389,
+                "lng": 36.817223
+            },
+            "defaultLanguage": "EN",
+            "flagPictureURL": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Kenya.svg/510px-Flag_of_Kenya.svg.png"
+        },
+        {
+            "countryName": "Tanzania",
+            "countryID": "TZ",
+            "phoneCode": "+255",
+            "currency": "TZS",
+            "defaultGPS": {
+                "lat": -6.776012,
+                "lng": 39.178326
+            },
+            "defaultLanguage": "EN",
+            "flagPictureURL": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Flag_of_Tanzania.svg/510px-Flag_of_Tanzania.svg.png"
+        },
+        {
+            "countryName": "Uganda",
+            "countryID": "UG",
+            "phoneCode": "+256",
+            "currency": "UGX",
+            "defaultGPS": {
+                "lat": 0.3208730561416851,
+                "lng": 32.580959738168175
+            },
+            "defaultLanguage": "EN",
+            "flagPictureURL": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Flag_of_Uganda.svg/510px-Flag_of_Uganda.svg.png"
+        }
+    ]
+}

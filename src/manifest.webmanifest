@@ -1,0 +1,35 @@
+{
+    "name": "Kuyua",
+    "short_name": "Kuyua",
+    "theme_color": "#008060",
+    "background_color": "#fafafa",
+    "display": "standalone",
+    "gcm_sender_id": "103953800507",
+    "scope": "./",
+    "start_url": "./",
+    "icons": [{
+            "src": "assets/icon/pwa/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable any"
+        },
+        {
+            "src": "assets/icon/pwa/icon-256x256.png",
+            "sizes": "256x256",
+            "type": "image/png",
+            "purpose": "maskable any"
+        },
+        {
+            "src": "assets/icon/pwa/icon-384x384.png",
+            "sizes": "384x384",
+            "type": "image/png",
+            "purpose": "maskable any"
+        },
+        {
+            "src": "assets/icon/pwa/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable any"
+        }
+    ]
+}

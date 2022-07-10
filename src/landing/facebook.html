@@ -1,0 +1,121 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <style>
+        html {
+            font-size: 1rem;
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+            overflow-x: hidden;
+        }
+
+        footer {
+            margin-bottom: 0;
+        }
+
+        .img-card {
+            width: 20%;
+        }
+    </style>
+
+    <!-- Facebook Pixel Code -->
+    <script>
+        ! function(f, b, e, v, n, t, s) {
+            if (f.fbq) return;
+            n = f.fbq = function() {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n;
+            n.push = n;
+            n.loaded = !0;
+            n.version = '2.0';
+            n.queue = [];
+            t = b.createElement(e);
+            t.async = !0;
+            t.src = v;
+            s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '987399245323675');
+        fbq('track', 'PageView');
+        fbq('trackCustom', 'landingPageArrival');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=987399245323675&ev=PageView&noscript=1" /></noscript>
+    <!-- End Facebook Pixel Code  336426374622693 -->
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kuyua</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+    <header>
+        <div class="p-2 text-center bg-success text-white jumbotron">
+            <img src="/assets/img/landing/logo_kuyua2.png" class="img-fluid center" alt="...">
+            <h1>Let your wealth grow through farming</h1>
+        </div>
+    </header>
+
+    <div class="p-3 text-center bg-success text-white container-fluid">
+        <p><strong>Kuyua</strong> is a brand new service in developed to help you grow your investments in farming. We are in beta which means you can be in the frontline of cool new ways to grow your farming business.</p>
+        <p>Join <strong>Kuyua</strong> now and become exclusive Beta tester of the first feature – a great market place for your produce!</p>
+        <a type="button" class="btn btn-warning p-2 drill_cursor" href="https://kuyua.com/signup"><strong>Click here to
+                go to our free and easy to use web-app!</strong></a>
+    </div>
+    <script>
+        document.getElementsByClassName('drill_cursor')[0]
+            .addEventListener('click', function(event) {
+                fbq('trackCustom', 'landingPageClick');
+            });
+    </script>
+
+    <div class="container-fluid">
+        <div class="row p-4">
+            <div class="col">
+                <div class="card mx-auto text-center border-0" style="width: 18rem;">
+                    <img src="/assets/img/landing/icons8-cash-in-hand-100.png" alt="..." class="img-card img-responsive center-block d-block mx-auto m-2">
+                    <div class="card-body">
+                        <h5 class="card-title text-success"><strong>MARKET INTELLIGENCE</strong></h5>
+                        <p class="card-text">Direct insight into the market. Where to buy and where to sell produce for the best prices.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mx-auto text-center border-0" style="width: 18rem;">
+                    <img src="/assets/img/landing/icons8-weak-financial-growth-100.png" alt="..." class="img-card img-responsive center-block d-block mx-auto m-2">
+                    <div class="card-body">
+                        <h5 class="card-title text-success"><strong>BEST IN CLASS PROCUREMENT POWER</strong></h5>
+                        <p class="card-text">Have access to the best resources. Because we know; you only want the best.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mx-auto text-center border-0" style="width: 18rem;">
+                    <img src="/assets/img/landing/icons8-cash-in-hand-100.png" alt="..." class="img-card img-responsive center-block d-block mx-auto m-2">
+                    <div class="card-body">
+                        <h5 class="card-title text-success"><strong>LAND PROPERTY AND PLOTS</strong></h5>
+                        <p class="card-text">Finding land, properties and plots was never so easy.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+
+</html>

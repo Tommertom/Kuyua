@@ -1,0 +1,60 @@
+{
+    "hosting": [{
+        "target": "app",
+        "public": "www",
+        "ignore": [
+            "**/.*"
+        ],
+        "headers": [{
+            "source": "*.[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f].+(css|js)",
+            "headers": [{
+                "key": "Cache-Control",
+                "value": "public,max-age=31536000,immutable"
+            }]
+        }],
+        "rewrites": [{
+                "source": "/privacy{,/**}",
+                "destination": "/privacy.html"
+            },
+            {
+                "source": "/facebook{,/**}",
+                "destination": "/facebook.html"
+            },
+            {
+                "source": "**",
+                "destination": "/index.html"
+            }
+        ]
+    }],
+    "firestore": {
+        "rules": "firestore.rules",
+        "indexes": "firestore.indexes.json"
+    },
+    "emulators": {
+        "auth": {
+            "port": 9099
+        },
+        "functions": {
+            "port": 5001
+        },
+        "firestore": {
+            "port": 8080
+        },
+        "hosting": {
+            "port": 5000
+        },
+        "ui": {
+            "enabled": true,
+            "port": 4000
+        },
+        "storage": {
+            "port": 9199
+        }
+    },
+    "functions": {
+        "source": "functions"
+    },
+    "storage": {
+        "rules": "storage.rules"
+    }
+}

@@ -1,0 +1,22 @@
+td {
+    font-size: 33px;
+    width: 75px;
+    height: 50px;
+    text-align: center;
+}
+
+.d-flex {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.smalltext {
+    color: black;
+    font-size: 90%;
+}
+
+.pin {
+    font-size: 300%;
+}

@@ -1,0 +1,70 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="end" (click)="closeModal()">
+            close
+        </ion-buttons>
+        <ion-title>
+            <ion-avatar slot="start">
+                <img alt="avatar" [src]="opportunity.sellerUserPhotoURL" />
+            </ion-avatar>
+            {{opportunity.sellerUserDisplayName}}
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <br>
+    <ion-item>
+        <ion-avatar style="width:75px;height:75px" slot="start">
+            <img alt="production" [src]="opportunity.sellerUserPhotoURL" />
+        </ion-avatar>
+        <ion-label class="ion-text-wrap">
+            <h1>{{opportunity.commodity}}</h1>
+            <h2>{{opportunity.commodityDetails}}</h2>
+            <p>On sale since: {{opportunity.creationDate|date:'shortDate'}}</p>
+        </ion-label>
+    </ion-item>
+    <ion-button expand="full" (click)="contactSeller()">
+        Chat with seller
+    </ion-button>
+    <ion-button expand="full" color="secondary " (click)="shareBuyingOpportunity(opportunity) ">Recommend to friends!
+        <ion-icon slot="end" name="share"></ion-icon>
+    </ion-button> <img alt="production" [src]="opportunity.photoURL" />
+
+
+    <h1>Other products on sale by {{opportunity.sellerUserDisplayName}}</h1>
+
+    <ng-container *ngIf="(otherProductionsFromSeller$ | async) as otherProductionsFromSeller; else waitingData">
+        <ion-item *ngFor="let opportunity of otherProductionsFromSeller" (click)="contactOtherProductOfSeller(opportunity)">
+            <ion-thumbnail slot="start">
+                <img alt="avatar" [src]="opportunity.photoURL" />
+            </ion-thumbnail>
+            <ion-label class="ion-text-wrap">
+                <h2>{{opportunity.commodity}} - {{opportunity.commodityDetails}}</h2>
+                <p *ngIf="opportunity.countOfContacts>0">Last contact {{opportunity.lastContact | date:'short'}} </p>
+            </ion-label>
+        </ion-item>
+        <div *ngIf="otherProductionsFromSeller.length==0">
+            Nothing else found
+        </div>
+    </ng-container>
+
+    <ng-template #waitingData>
+        <ion-item *ngFor="let item of [1]">
+            <ion-thumbnail slot="start">
+                <ion-skeleton-text></ion-skeleton-text>
+            </ion-thumbnail>
+            <ion-label>
+                <h3>
+                    <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                </h3>
+                <p>
+                    <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                </p>
+                <p>
+                    <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+                </p>
+            </ion-label>
+        </ion-item>
+    </ng-template>
+</ion-content>

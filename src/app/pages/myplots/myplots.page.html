@@ -1,0 +1,76 @@
+<ion-header>
+    <ion-toolbar>
+        <app-profileitem slot="end" [user]="user"></app-profileitem>
+        <ion-title>{{user.fullName}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="addPlot()">
+        <ion-fab-button>
+            Add
+        </ion-fab-button>
+    </ion-fab>
+
+    <google-map (mapClick)="mapClick($event)" height="250px" [width]="width" [zoom]="zoom" [center]="center" [options]="options">
+        <map-marker (mapClick)="markerClick(marker)" #markerElem *ngFor="let marker of markers" [position]="marker.position" [label]="marker.label" [title]="marker.title" [options]="marker.options">
+        </map-marker>
+    </google-map>
+
+    <ng-template #waitingData>
+        <ion-item *ngFor="let item of skeletonItems">
+            <ion-thumbnail slot="start">
+                <ion-skeleton-text></ion-skeleton-text>
+            </ion-thumbnail>
+            <ion-label>
+                <h3>
+                    <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                </h3>
+                <p>
+                    <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                </p>
+                <p>
+                    <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+                </p>
+            </ion-label>
+        </ion-item>
+    </ng-template>
+
+    <ng-container *ngIf="plotsWithProductions$ | async as plots; else waitingData">
+        <ng-container *ngIf="plots.length >0; else noPlots">
+            <ion-item-sliding #slidingItem *ngFor="let plot of plots">
+
+                <ion-item-options side="end">
+                    <ion-item-option color="danger" (click)="archivePlot(plot,slidingItem)">
+                        <ion-icon slot="start" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
+                        Archive
+                    </ion-item-option>
+                </ion-item-options>
+
+                <ion-item (click)="viewPlot(plot)">
+                    <ion-label>
+                        <h2>{{plot.description}} </h2>
+                        <p>
+                            {{plot.productions.length}} productions
+                            <ng-container *ngIf="plot.productions.length>0"> - </ng-container>
+                            <ng-container *ngFor="let product of plot.productions">{{product.commodityName}}
+                            </ng-container>
+                        </p>
+                    </ion-label>
+                </ion-item>
+            </ion-item-sliding>
+        </ng-container>
+        <ng-template #noPlots>
+            <ion-item (click)="addPlot()">
+                <ion-thumbnail slot="start">
+                    <ion-icon style="font-size:400%" name="add-circle-outline"></ion-icon>
+                </ion-thumbnail>
+                <ion-label>
+                    <h2>Get started!</h2>
+                    <p class="ion-text-wrap">Welcome and click this to add your first plot</p>
+                </ion-label>
+            </ion-item>
+        </ng-template>
+    </ng-container>
+
+</ion-content>

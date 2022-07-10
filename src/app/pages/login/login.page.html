@@ -1,0 +1,62 @@
+<ion-content #content>
+    <ng-container *ngIf="email!=null">
+        <ion-grid class="signup-background" class="ion-no-padding ion-no-margin">
+            <section class="top-banner">
+                <ion-row>
+                    <ion-col size="12">
+                        <img src="/assets/img/signuplogin/logo_investor_beeldmerk_plant.png" class="kuyua-logo" />
+                    </ion-col>
+                </ion-row>
+                <p *ngIf="!showEmailSwitch"><b>Quick login</b></p> {{email}}
+                <div class="d-flex">
+                    <br>
+                    <div>
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col *ngFor="let pin of pins">
+                                    <ion-icon class="pin" [name]="pin.on? 'ellipse':'ellipse-outline'"></ion-icon>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+
+
+                        <table>
+                            <tr>
+                                <td (click)="enter('1')">1</td>
+                                <td (click)="enter('2')">2</td>
+                                <td (click)="enter('3')">3</td>
+                            </tr>
+                            <tr>
+                                <td (click)="enter('4')">4</td>
+                                <td (click)="enter('5')">5</td>
+                                <td (click)="enter('6')">6</td>
+                            </tr>
+                            <tr>
+                                <td (click)="enter('7')">7</td>
+                                <td (click)="enter('8')">8</td>
+                                <td (click)="enter('9')">9</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td (click)="enter('0')">0</td>
+                                <td (click)="back()">
+                                    < </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+
+                <ion-row *ngIf="showEmailSwitch">
+                    <ion-col size="12">
+                        <p (click)="goToSignup() " class="smalltext "> Go to signup page </p>
+                        <p class="smalltext ">or</p>
+                        <p (click)="changeEmail() " class="smalltext "> Change email address </p>
+                    </ion-col>
+                </ion-row>
+            </section>
+        </ion-grid>
+
+    </ng-container>
+    <br><br> <br><br> <br><br> <br><br> {{version}}
+</ion-content>

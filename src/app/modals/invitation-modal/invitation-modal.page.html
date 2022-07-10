@@ -1,0 +1,38 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="end" (click)="cancelPopover()">
+            cancel
+        </ion-buttons>
+        <ion-title>Hey there - do you have an invitation code?</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+
+    <h2>Great to have you on board!</h2>
+    Kuyua is still an invitation only service - if you received the code, please fill it out below.
+    <br>
+    <ion-item>
+        <ion-label position="stacked">Invitation code </ion-label>
+        <ion-input [(ngModel)]="inviteCode" placeholder="Enter ìnvitation code"></ion-input>
+    </ion-item>
+
+
+    <ion-button (click)="closeWithInvitecode()">Close with invitecode</ion-button>
+
+    <br>
+    <h2>Don't have a code?</h2>
+    Don't worry - no need to FOMO. Enter your name and adress below and we'll put you on the waiting list!
+
+    <ion-item>
+        <ion-label position="stacked">Name</ion-label>
+        <ion-input [(ngModel)]="name" placeholder="Enter name"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="stacked">Email </ion-label>
+        <ion-input [(ngModel)]="email" placeholder="Enter email"></ion-input>
+    </ion-item>
+
+    <ion-button (click)="closeForWaitingList()">Close for waitinglist</ion-button>
+
+
+</ion-content>

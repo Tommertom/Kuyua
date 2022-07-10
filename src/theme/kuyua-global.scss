@@ -1,0 +1,205 @@
+ // https://www.shopify.com/free-trial
+ // :root {
+ //    -font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+ //    --font-family-monospace: "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+ // }
+ // item sliding - https://www.joshmorony.com/create-a-sliding-item-animation-with-a-directive-in-ionic-2/
+ @keyframes slidingAnimation {
+     0% {
+         transform: translate3d(0, 0, 0);
+         -webkit-transform: translate3d(0, 0, 0);
+     }
+     50% {
+         transform: translate3d(-70px, 0, 0);
+         -webkit-transform: translate3d(-70px, 0, 0);
+     }
+     100% {
+         transform: translate3d(0, 0, 0);
+         -webkit-transform: translate3d(0, 0, 0);
+     }
+ }
+ 
+ .itemSlidingAnimation {
+     -webkit-animation: slidingAnimation;
+     animation: slidingAnimation;
+     -webkit-animation-duration: 1000ms;
+     animation-duration: 1000ms;
+ }
+ 
+ // Modal related SCSS
+ @media only screen and (min-width: 768px) {
+     .modal-wrapper {
+         --width: 100%;
+         --height: 100%;
+     }
+ }
+ 
+ .fullscreen-modal {
+     --border-radius: 0px;
+ }
+ 
+ .chevron-back {
+     font-size: 200%;
+ }
+ 
+ // Big popover
+ .big-popover .popover-wrapper {
+     --width: 95%;
+     --height: 95%;
+ }
+ 
+ //
+ // Wizard slides
+ //
+ ion-slides {
+     // height: 100%;
+     //  padding-top: -11150px;
+     // color: white;
+     // padding-bottom: 210px;
+     background-repeat: no-repeat;
+     // background-color: white;
+     // background-size: cover;
+     // background-image: url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%221440%22%20height=%22661.1%22%20viewBox=%220%200%201440%20661.1%22%3E%3Cstyle%20type=%22text/css%22%3Ecircle,%20ellipse,%20line,%20path,%20polygon,%20polyline,%20rect,%20text%20%7B%20fill:%20rgb(0,%20128,%2096)%20!important;%20%7D%3C/style%3E%3Cpath%20fill=%22rgb(0,%20128,%2096)%22%20d=%22M1440%20488c-19.3%204.3-39.2%208.6-60%2013-174.2%2036.5-228.8%20288-467%2076.2-153.6-136.6-424-22.8-660.4-5.8-130.2%209.3-252.6-75-252.6-75V0h1440%22/%3E%3C/svg%3E");
+ }
+ 
+ .swiper-wrapper {
+     margin-top: 5px;
+ }
+ 
+ .swiper-slide {
+     display: block;
+     overflow-y: scroll;
+ }
+ 
+ .whatsapp-text {
+     font-size: 300%;
+     color: #25D366
+ }
+ 
+ .profile-avatar {
+     width: 50px;
+     height: 50px;
+ }
+ 
+ .avatar-badge {
+     position: absolute;
+     top: 10px;
+     right: 10px;
+     z-index: 1000;
+ }
+ 
+ //
+ // Signup/login/splash/contact
+ //
+ .top-banner {
+     color: white;
+     background-repeat: no-repeat;
+     background-color: white;
+     padding-top: 10px;
+     padding-left: 50px;
+     padding-right: 50px;
+     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%221440%22%20height=%22661.1%22%20viewBox=%220%200%201440%20661.1%22%3E%3Cstyle%20type=%22text/css%22%3Ecircle,%20ellipse,%20line,%20path,%20polygon,%20polyline,%20rect,%20text%20%7B%20fill:%20rgb(0,%20128,%2096)%20!important;%20%7D%3C/style%3E%3Cpath%20fill=%22rgb(0,%20128,%2096)%22%20d=%22M1440%20488c-19.3%204.3-39.2%208.6-60%2013-174.2%2036.5-228.8%20288-467%2076.2-153.6-136.6-424-22.8-660.4-5.8-130.2%209.3-252.6-75-252.6-75V0h1440%22/%3E%3C/svg%3E");
+     text-align: center;
+     color: white;
+     @media only screen and (max-width: 880px) {
+         background-size: 1250px;
+         height: 500px;
+     }
+     @media only screen and (min-width: 880px) {
+         background-size: cover;
+         height: 675px;
+     }
+     a {
+         color: white;
+         text-decoration: none;
+     }
+     .kuyua-logo {
+         width: 250px;
+     }
+     h1 {
+         font-size: 1.75em;
+         font-weight: 700;
+     }
+     h2 {
+         font-size: 1em;
+         font-weight: 400;
+     }
+     h3 {
+         font-size: 0.75em;
+         font-weight: 200;
+     }
+     ion-button {
+         font-size: 150%;
+         // if smaller then 866, then change
+     }
+ }
+ 
+ .top-banner-large {
+     @media only screen and (max-width: 880px) {
+         visibility: none;
+         position: absolute;
+         left: -1000px;
+         top: -1000px;
+     }
+ }
+ 
+ .perks {
+     padding-top: 30px;
+     color: black;
+     background-color: white;
+     text-align: center;
+     line-height: 1.5;
+     font-weight: 100;
+     font-size: 1em;
+     color: #6b7177;
+     img {
+         width: 50px;
+     }
+     b {
+         margin-bottom: 0.6666666667em;
+         color: #212326;
+         text-transform: capitalize;
+         font-weight: 700;
+         font-size: 1.125em;
+     }
+     ion-col {
+         padding-left: 75px;
+         padding-right: 75px;
+     }
+     ion-row {
+         padding-bottom: 50px;
+     }
+ }
+ 
+ .testimonials {
+     padding-left: 10px;
+     padding-right: 10px;
+     padding-top: 30px;
+     color: #212326;
+     background-color: #fbf7ed;
+     font-weight: 200;
+     text-align: center;
+     font-size: 1.25em;
+     line-height: 1.5;
+     .name {
+         font-size: 0.8em;
+         text-transform: capitalize;
+         margin-bottom: 1em;
+     }
+ }
+ 
+ .bottom-action {
+     padding-top: 60px;
+     background-color: #002e25;
+     text-align: center;
+     ion-button {
+         font-size: 150%;
+     }
+ }
+ 
+ .disclaimer {
+     padding-top: 60px;
+     color: #b6babf;
+     background-color: #002e25;
+     text-transform: capitalise;
+ }

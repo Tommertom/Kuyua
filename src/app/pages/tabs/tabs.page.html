@@ -1,0 +1,22 @@
+<ion-tabs>
+
+    <ion-tab-bar slot="bottom">
+        <ion-tab-button tab="myplots">
+            <ion-icon name="body-sharp"></ion-icon>
+            <ion-label>My Plots</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="marketplace">
+            <ion-icon name="clipboard-sharp"></ion-icon>
+            <ion-label>Marketplace</ion-label>
+            <ion-badge color="success" *ngIf="tabMarketplaceBadgeCount>0">{{tabMarketplaceBadgeCount}}</ion-badge>
+        </ion-tab-button>
+
+        <ion-tab-button tab="mysales">
+            <ion-icon name="chatbox-sharp"></ion-icon>
+            <ion-label>My sales</ion-label>
+            <ion-badge *ngIf="notificationCount>0">{{notificationCount}}</ion-badge>
+        </ion-tab-button>
+    </ion-tab-bar>
+
+</ion-tabs>

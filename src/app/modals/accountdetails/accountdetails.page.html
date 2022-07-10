@@ -1,0 +1,42 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start" (click)="closeModal()">
+            cancel
+        </ion-buttons>
+        <ion-buttons *ngIf="newForm?.valid" slot="end" (click)="closeAndSave()">
+            close
+        </ion-buttons>
+        <ion-title>Your account</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="fileUpload ">
+        <ion-avatar style="margin:0 auto;width:120px;height:120px">
+            <img [src]="photoURL">
+        </ion-avatar>
+        <p>change picture</p>
+        <input class="upload" style="opacity: 0" type="file" (change)="upload($event)" accept=".png,.jpg" />
+    </div>
+    <form [formGroup]="newForm">
+        <ion-item>
+            <ion-label position="stacked">Full Name</ion-label>
+            <ion-input placeholder="Enter value" formControlName="fullName"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">Email</ion-label>
+            <ion-input readonly placeholder="Enter value" formControlName="email"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">WhatsApp Number</ion-label>
+            <ion-input readonly placeholder="Enter value" formControlName="whatsAppNr"></ion-input>
+        </ion-item>
+
+    </form>
+    <ion-button *ngIf="showNotificationButton" expand="full" (click)="setupNotifications()">Enable notifications
+    </ion-button>
+    <br><br><br><br>
+    <ion-button *ngIf="showExperimental" expand="full" color="danger" (click)="showExperimentalFeatures()">
+        Show experimental features</ion-button>
+
+</ion-content>

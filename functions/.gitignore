@@ -1,0 +1,4 @@
+node_modules/
+.runtimeconfig.json
+firestore_export/
+firebase-export-metadata.json

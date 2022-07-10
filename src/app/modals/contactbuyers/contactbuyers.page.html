@@ -1,0 +1,67 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="end" (click)="closeModal()">
+            close
+        </ion-buttons>
+        <ion-title>Potential buyers</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <div *ngIf="showListContacts">
+
+        <h2>Production info</h2>
+        <ion-item (click)="showProduction(production)">
+            <ion-thumbnail slot="start">
+                <img alt="avatar" [src]="production.photoURL" />
+            </ion-thumbnail>
+            <ion-label>
+                <h2>{{production.details}}</h2>
+                <p>Expected quantity: {{production.expectedQuantity}}</p>
+            </ion-label>
+        </ion-item>
+
+        <h2>Interested buyers</h2>
+        <ng-container *ngIf="interestedBuyers$ | async as interestedBuyers">
+            <ion-item-sliding #slidingItem *ngFor="let interestedBuyer of interestedBuyers">
+                <ion-item-options side="end">
+                    <ion-item-option color="danger" (click)="removeInterestBuyer(interestedBuyer,slidingItem)">
+                        <ion-icon slot="start" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
+                        Remove
+                    </ion-item-option>
+                </ion-item-options>
+
+                <ion-item (click)="contactBuyer(interestedBuyer)">
+                    <ion-avatar slot="start" style="width:75px;height:75px">
+                        <img [src]="interestedBuyer.buyerPhotoURL">
+                    </ion-avatar>
+                    <ion-label class="ion-text-wrap">
+                        <h2>{{interestedBuyer.buyerDisplayName}}
+                        </h2>
+                        <p>Last contact {{interestedBuyer.lastContact|date:'short'}}</p>
+                        <p>
+                            <ion-chip *ngIf="interestedBuyer.buyerUserID===buyerToFlagID" color="success">new interested buyer!
+                            </ion-chip>
+                        </p>
+                    </ion-label>
+                    <ion-icon slot="end" class="whatsapp-text" name="logo-whatsapp"></ion-icon>
+                </ion-item>
+            </ion-item-sliding>
+            <div *ngIf="interestedBuyers.length===0">
+                No interested buyers
+            </div>
+        </ng-container>
+    </div>
+
+    <div *ngIf="showConversationReview">
+        Here the user should give feedback
+        <ion-button expand="full" (click)="submitConversationReview()">
+            Give random feedback
+        </ion-button>
+        <ion-button expand="full" (click)="submitConversationReviewAndSold()">
+            Give random feedback and sold
+        </ion-button>
+    </div>
+
+</ion-content>

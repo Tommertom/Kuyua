@@ -1,0 +1,120 @@
+<ion-content #content>
+
+    <form [formGroup]="newForm">
+
+        <ion-slides pager="false" scrollbar="true" #slides (ionSlideNextEnd)="ionSlideNextEnd()" fullscreen>
+            <ion-slide>
+                <div class="slide">
+                    <div style="position:absolute;right:10px" (click)="cancelNewProduction()">cancel</div>
+                    <br><br>
+                    <div class="fileUpload btn btn-primary">
+                        <span> Upload/take picture </span>
+                        <input class="upload" style="opacity: 0" type="file" (change)="upload($event)" accept=".png,.jpg" />
+                    </div>
+                    <br>
+                    <p>or select one from below</p>
+                    <br>
+                    <div class="cards">
+                        <div class="card" *ngFor="let commodity of commodities$|async" (click)="commodityClicked(commodity)">
+                            <ion-card>
+                                <img [src]="commodity.photoURL" width="100%" />
+                                <ion-card-header>
+                                    <ion-card-subtitle>{{commodity.description}}</ion-card-subtitle>
+                                </ion-card-header>
+                            </ion-card>
+                        </div>
+                    </div>
+                    <div class="fileUpload btn btn-primary">
+                        <span> Take picture/upload </span>
+                        <input class="upload" style="opacity: 0" type="file" (change)="upload($event)" accept=".png,.jpg" />
+                    </div>
+
+                </div>
+            </ion-slide>
+
+            <ion-slide>
+                <div class="slide">
+                    <div style="position:absolute;right:10px" (click)="cancelNewProduction()">cancel</div>
+                    <br><br>
+
+                    <h2>Edit your product on offer </h2>
+                    <br>
+                    <ion-item>
+                        <ion-badge color="success" style="position:absolute;right:10px;top:10px;">
+                            new
+                        </ion-badge>
+                        <ion-thumbnail slot="start">
+                            <img alt="avatar" [src]="newProduction.photoURL" />
+                        </ion-thumbnail>
+                        <ion-label class="ion-text-wrap">
+                            <h2>{{newForm.controls.commodityName.value}} </h2>
+                            <p> {{newForm.controls.details.value}}</p>
+                            <p> by {{user.fullName}}
+                            </p>
+                        </ion-label>
+                    </ion-item>
+                    <br>
+                    <ion-item>
+                        <ion-label position="stacked">Product </ion-label>
+                        <ion-input (ionBlur)="content.scrollToTop()" clearInput placeholder="Enter product" formControlName="commodityName"></ion-input>
+                    </ion-item>
+
+
+                    <ion-item>
+                        <ion-label position="stacked">Additional details </ion-label>
+                        <ion-input (ionBlur)="content.scrollToTop()" clearInput placeholder="Enter details" formControlName="details"></ion-input>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label position="stacked">Expected yield in kgs </ion-label>
+                        <ion-input (ionBlur)="content.scrollToTop()" formControlName="expectedQuantity"></ion-input>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label position="stacked">Already active for sale?</ion-label>
+                        <ion-toggle slot="end" formControlName="isForSale"></ion-toggle>
+                    </ion-item>
+                    <ion-button (click)="nextSlide()">Next step
+                    </ion-button>
+
+
+
+                </div>
+            </ion-slide>
+
+
+
+            <ion-slide>
+                <div class="slide">
+                    <h2>All set!</h2>
+                    <p>Please check all details</p>
+                    <br>
+                    <ion-thumbnail style="margin:0 auto;width:120px;height:120px">
+                        <img [src]="newProduction.photoURL">
+                    </ion-thumbnail>
+                    <ion-item>
+                        <ion-label position="stacked">Name</ion-label>
+                        <ion-label class="ion-text-wrap">{{newForm.controls.commodityName.value}}</ion-label>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label position="stacked">Description</ion-label>
+                        <ion-label class="ion-text-wrap">{{newForm.controls.details.value}}</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked"> Is for sale</ion-label>
+                        <ion-label>{{this.newForm.controls.isForSale.value?"yes":"no"}}</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked">Expected yield</ion-label>
+                        <ion-label>{{this.newForm.controls.expectedQuantity.value}}</ion-label>
+                    </ion-item>
+                    <ion-button expand="full" (click)="finishWizard()">
+                        Finish and add production
+                    </ion-button>
+                </div>
+            </ion-slide>
+
+        </ion-slides>
+    </form>
+</ion-content>

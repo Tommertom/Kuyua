@@ -1,0 +1,38 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons *ngIf="newForm.valid" slot="end" (click)="addPlot()">
+            add
+        </ion-buttons>
+        <ion-buttons slot="start" (click)="cancelModal()">
+            cancel
+        </ion-buttons>
+        <ion-title>Add new plot</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <google-map (mapClick)="mapClick($event)" height="200px" [width]="width" [zoom]="zoom" [center]="center" [options]="options">
+        <map-marker #markerElem *ngFor="let marker of markers" [position]="marker.position" [label]="marker.label" [title]="marker.title" [options]="marker.options">
+        </map-marker>
+    </google-map>
+    <h2>Select location on map</h2>
+
+    <form [formGroup]="newForm">
+
+        <ion-item>
+            <ion-label position="stacked">Description </ion-label>
+            <ion-input formControlName="description" placeholder="Enter description" required></ion-input>
+        </ion-item>
+
+
+        <ion-item>
+            <ion-label position="stacked">Size in acres </ion-label>
+            <ion-input formControlName="sizeInAcres" required></ion-input>
+        </ion-item>
+    </form>
+
+    <ion-button expand="full" (click)="addPlot()" [disabled]="!newForm.valid">
+        Add plot
+    </ion-button>
+
+</ion-content>

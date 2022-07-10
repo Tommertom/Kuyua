@@ -1,0 +1,7 @@
+{
+    "name": "Kuyua",
+    "integrations": {
+        "capacitor": {}
+    },
+    "type": "angular"
+}

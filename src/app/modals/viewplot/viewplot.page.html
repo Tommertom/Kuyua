@@ -1,0 +1,98 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons *ngIf="newForm?.valid" slot="end" (click)="closeModal()">
+            close
+        </ion-buttons>
+        <ion-buttons slot="start" (click)="cancelModal()">
+            cancel
+        </ion-buttons>
+        <ion-title>{{plot.description}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="addProduction()">
+        <ion-fab-button>
+            Add
+        </ion-fab-button>
+    </ion-fab>
+
+    <google-map (mapClick)="mapClick($event)" height="200px" [width]="width" [zoom]="zoom" [center]="center" [options]="options">
+        <map-marker #markerElem *ngFor="let marker of markers" [position]="marker.position" [label]="marker.label" [title]="marker.title" [options]="marker.options">
+        </map-marker>
+    </google-map>
+    <i>Click map to change location.</i>
+
+    <h1> Plot info</h1>
+
+    <form [formGroup]="newForm">
+
+        <ion-item>
+            <ion-label position="stacked">Description </ion-label>
+            <ion-input formControlName="description" placeholder="Enter description" required></ion-input>
+        </ion-item>
+
+
+        <ion-item>
+            <ion-label position="stacked">Size in acres </ion-label>
+            <ion-input formControlName="sizeInAcres" required></ion-input>
+        </ion-item>
+    </form>
+
+    <h1> Production</h1>
+
+    <div *ngIf="productions$ | async as productions; else loading">
+        <ng-container *ngIf="productions.length>0; else noItems">
+            <ion-item-sliding #slidingItem *ngFor="let production of productions">
+                <ion-item-options side="end">
+                    <ion-item-option color="danger" (click)="archiveProduction(production,slidingItem)">
+                        <ion-icon slot="start" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
+                        Archive
+                    </ion-item-option>
+                </ion-item-options>
+
+                <ion-item>
+                    <ion-thumbnail slot="start" (click)="viewProduction(production)">
+                        <img alt="avatar" [src]="production.photoURL" />
+                    </ion-thumbnail>
+                    <ion-label (click)="viewProduction(production)">
+
+                        <h2>{{production.commodityName}} </h2>
+                        <p>{{production.details}}
+                        </p>
+
+                    </ion-label>
+                    <ion-toggle [checked]="plotToggles[production.productionID].currToggle" (ionChange)="toggleForSale(production)"></ion-toggle>
+
+                </ion-item>
+            </ion-item-sliding>
+
+        </ng-container>
+        <ng-template #noItems>No Items!</ng-template>
+    </div>
+
+    <h1>Earlier productions </h1>
+
+    <div *ngIf="oldProductions$ | async as productions; else loading">
+        <ng-container *ngIf="productions.length>0; else noItems">
+
+            <ion-item *ngFor="let production of productions" (click)="viewProduction(production)">
+                <ion-thumbnail slot="start">
+                    <img alt="avatar" [src]="production.photoURL" />
+                </ion-thumbnail>
+                <ion-label>
+                    <h2>{{production.details}} </h2>
+                    <p>Expected quantity: {{production.expectedQuantity}} - Sold already: {{production.soldQuantity}}
+                    </p>
+                </ion-label>
+            </ion-item>
+
+        </ng-container>
+        <ng-template #noItems>No earlier productions</ng-template>
+    </div>
+
+    <ng-template #loading>loading plots...</ng-template>
+
+</ion-content>

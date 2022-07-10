@@ -1,0 +1,168 @@
+<ion-content #content>
+    <div></div>
+    <ion-slides pager="true" #slides (ionSlideNextEnd)="ionSlideNextEnd()" fullscreen>
+        <ion-slide>
+            <div class="slide">
+                <ion-icon style="font-size:400%" name="leaf-sharp"></ion-icon>
+                <h1>Hi {{newUser?.displayName}}</h1>
+                <br>
+                <h2>Welcome to Kuyua </h2>
+                <br>
+                <p>We make farming easy through our app. </p>
+            </div>
+            <br>
+            <ion-button fill="clear" (click)="nextSlide()"> Great, set me up!
+                <ion-icon slot="end" name="arrow-forward"></ion-icon>
+            </ion-button>
+        </ion-slide>
+
+        <ion-slide>
+            <div class="slide">
+                <ion-icon style="font-size:400%" name="person"></ion-icon>
+                <h2>Tell us more about yourself</h2>
+                <p>Just select all options that apply to you.</p>
+                <br>
+
+                <ion-item>
+                    <ion-label>I like to sell my farm produce/products </ion-label>
+                    <ion-checkbox [(ngModel)]="newUser.profile.isSeller" color="primary" slot="start">
+                    </ion-checkbox>
+                </ion-item>
+                <ion-item>
+                    <ion-label>I like to buy and resell produce/products </ion-label>
+                    <ion-checkbox [(ngModel)]="newUser.profile.isBuyer" color="primary" slot="start"></ion-checkbox>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label>I buy produce/products for own use</ion-label>
+                    <ion-checkbox [(ngModel)]="newUser.profile.isUser" color="primary" slot="start"></ion-checkbox>
+                </ion-item>
+
+                <br>
+                <ion-button fill="clear" (click)="nextSlide()">Continue
+                    <ion-icon slot="end" name="arrow-forward"></ion-icon>
+                </ion-button>
+            </div>
+        </ion-slide>
+
+        <ion-slide>
+            <div class="slide">
+                <ion-icon style="font-size:400%" name="location-outline"></ion-icon>
+                <h2>Tell <b>Kuyua</b> where you are based</h2>
+                <ng-container *ngIf="canGetCurrentLocation">
+                    <ion-button (click)="markUsingCurrentLocation()">Mark using your current location</ion-button>
+                    <br><br> Or select on the map below:<br>
+                </ng-container>
+                <ng-container *ngIf="!canGetCurrentLocation">
+                    Select on the map below: <br>
+                </ng-container>
+                <google-map (mapClick)="mapClick($event)" height="400px" [width]="width" [zoom]="zoom" [center]="center" [options]="options">
+                    <map-marker #markerElem *ngFor="let marker of markers" [position]="marker.position" [label]="marker.label" [title]="marker.title" [options]="marker.options">
+                    </map-marker>
+                </google-map>
+            </div>
+        </ion-slide>
+
+        <ion-slide>
+            <div class="slide">
+                <ion-icon style="font-size:400%" name="mail-outline"></ion-icon>
+                <h2><b>Security first!</b> - enter a pincode</h2>
+                <div class="d-flex">
+                    <br>
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col *ngFor="let pin of pins">
+                                <ion-icon class="pin" [name]="pin.on? 'ellipse':'ellipse-outline'"></ion-icon>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                    <div>
+                        <table>
+                            <tr>
+                                <td (click)="enter('1')">1</td>
+                                <td (click)="enter('2')">2</td>
+                                <td (click)="enter('3')">3</td>
+                            </tr>
+                            <tr>
+                                <td (click)="enter('4')">4</td>
+                                <td (click)="enter('5')">5</td>
+                                <td (click)="enter('6')">6</td>
+                            </tr>
+                            <tr>
+                                <td (click)="enter('7')">7</td>
+                                <td (click)="enter('8')">8</td>
+                                <td (click)="enter('9')">9</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td (click)="enter('0')">0</td>
+                                <td (click)="back()">
+                                    < </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+
+                <br>
+                <ion-button fill="clear" [disabled]="!validPIN" (click)="confirmPin()"> Next step
+                    <ion-icon slot="end" name="arrow-forward"></ion-icon>
+                </ion-button>
+            </div>
+        </ion-slide>
+
+
+        <ion-slide>
+            <div class="slide">
+                <ion-icon style="font-size:400%" name="mail-outline"></ion-icon>
+                <h2>Tell <b>Kuyua</b> your email address</h2>
+
+                <p>So we can reach out to you for great offers on the marketplace - we won't spam!</p>
+                <p>And we need your number for account recovery purposes. </p>
+
+                <br>
+                <ion-input (ionChange)="emailInput($event)" placeholder="Enter your email" [(ngModel)]="email" [readonly]="emailChecking"></ion-input>
+
+                <ion-button fill="clear" *ngIf="!emailChecking" [disabled]="validEmail" (click)="checkEmailBeforeCode()">
+                    Confirm email
+                    <ion-icon slot="end" name="arrow-forward"></ion-icon>
+                </ion-button>
+
+                <ng-container *ngIf="emailChecking">
+                    <ion-input (ionChange)="codeInput($event)" placeholder="Enter 4-digit code received in email" [(ngModel)]="emailCode"></ion-input>
+                    <ion-button [disabled]="!validCode" fill="clear" (click)="testCodeFromEmail()"> Check code
+                        <ion-icon slot="end" name="arrow-forward"></ion-icon>
+                    </ion-button><br>
+                    <ng-container *ngIf="showCancelEmailCode">
+                        <ion-button fill="clear" (click)="cancelEmailcodeAndGoOn()"> Skip and confirm later
+                            <ion-icon slot="end" name="arrow-forward"></ion-icon>
+                        </ion-button>
+                        <br> Don't forget to check your spam box to confirm your email address!
+                    </ng-container>
+                </ng-container>
+            </div>
+        </ion-slide>
+
+
+
+        <ion-slide>
+            <div class="slide">
+                <br>
+                <img [src]="flagURL" width="20%">
+                <h2>Ready, set, go!</h2>
+                <p>You are now fully setup to use Kuyua to trade your produce</p>
+                <br>
+                <i> Kuyua communicates via WhatsApp <br> make sure this is setup on this device</i>
+                <br>
+                <p>Your account with Kuyua:</p>
+                <p>{{email}}</p>
+                <br>Pincode: {{pincode}}
+                <br>
+                <ion-button fill="clear" (click)="finishWizard()">Continue to the app
+                    <ion-icon slot="end" name="arrow-forward"></ion-icon>
+                </ion-button>
+            </div>
+        </ion-slide>
+
+    </ion-slides>
+</ion-content>

@@ -1,0 +1,152 @@
+<ion-content #content>
+  <pre *ngIf="viewLog">
+      {{log}}
+  </pre>
+  <ion-grid class="signup-background" class="ion-no-padding ion-no-margin">
+    <section class="top-banner">
+      <ion-row>
+        <ion-col size="12">
+          <img src="/assets/img/signuplogin/logo_investor_beeldmerk_plant.png" class="kuyua-logo" />
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <h1>Let your wealth grow through farming</h1>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <img src="assets/img/signuplogin/graph.png" width="120px">
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <p>Kuyua is a brand new service developed to help you grow your investments in farming. </p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          We are in beta which means you can be in the frontline of cool new ways to grow your farming business
+        </ion-col>
+      </ion-row>
+      <br>
+    </section>
+
+    <!-- signup CTA -->
+    <section class="testimonials">
+
+      <ng-container>
+        <b>Join Kuyua now and become exclusive beta tester!</b>
+        <br>
+        <ion-item>
+          <ion-input (ionChange)="userEntersData()" type="name" [(ngModel)]="fullName" placeholder="Enter your name">
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input (ionChange)="userEntersData()" type="tel" [(ngModel)]="phoneNumber"
+            placeholder="Your WhatsApp nr (+256 781 234 568)">
+          </ion-input>
+        </ion-item>
+
+        <div id="recaptcha-container">
+          <div id="send-confirm-button"></div>
+        </div>
+        <ng-container *ngIf="!showConfirmbutton">
+          <ion-item>
+            <ion-label position="stacked">Enter confirmation code received from SMS</ion-label>
+            <ion-input type="text" [(ngModel)]="verifierCode" placeholder="Enter verifier code"></ion-input>
+          </ion-item>
+          <br><br>
+          <ion-button [disabled]="disableSendSMS" (click)="cancelConfirmSMSCode()">Cancel</ion-button>
+          <ion-button [disabled]="disableSendSMS" (click)="confirmSMSCode()">Check code</ion-button>
+        </ng-container>
+
+        <ion-button expand="block" *ngIf="showConfirmbutton" size="small" class="ion-no-margin"
+          (click)="presentAreYouSure()">
+          <ion-icon slot="start" name="phone-portrait-outline"></ion-icon>
+          Sign me up!
+        </ion-button>
+        <ion-row>
+          <ion-col><br>
+            <p> Signup to Kuyua for free, no credit card required. Easy to install and no downloads from store needed!
+            </p>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col (click)="goToLogin()">
+            <p class="smalltext"> Already signed up? Click here to login</p>
+          </ion-col>
+        </ion-row>
+      </ng-container>
+      <br><br><br>
+    </section>
+    <!-- signup CTA -->
+
+
+    <!--  end top banner -->
+    <section class="perks ">
+      <ion-row>
+        <ion-col>
+          <img class="perk-icon" src="assets/img/signuplogin/icons8-cash-in-hand-100.png"><br>
+          <b style="color:#0F925D">MARKET INTELLIGENCE</b><br> Direct insight into the market. Where to buy and where to
+          sell produce for the best prices.
+
+        </ion-col>
+        <ion-col>
+          <img src="assets/img/signuplogin/icons8-weak-financial-growth-100.png"><br>
+          <b style="color:#0F925D">BEST IN CLASS PROCUREMENT POWER
+          </b><br> Have access to the best resources. Because we know; you only want the best.
+
+        </ion-col>
+
+        <ion-col>
+          <img src="assets/img/signuplogin/icons8-ground-100.png"><br>
+          <b style="color:#0F925D">LAND PROPERTY AND PLOTS</b><br> Finding land, properties and plots was never so easy.
+          <br>
+        </ion-col>
+
+      </ion-row>
+    </section>
+    <!--  end perks  -->
+
+    <!-- start testimonials -->
+    <section class="testimonials">
+      <ion-row (click)="viewLog=!viewLog">
+        <ion-avatar>
+          <img src="assets/img/signuplogin/man-wearing-gray-crew-neck-shirt-holding-black-smartphone-2379886.jpg">
+        </ion-avatar>
+        <ion-col>
+          "I’ve found a few potential buyers of my produce and all of that in just a few seconds! WOW!"
+          <br>
+          <div class="name">Kevin</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          "I told the app about my farm and it started giving me intresting opportunities."
+          <br>
+          <div class="name">Susan</div>
+        </ion-col>
+        <ion-avatar>
+          <img src="assets/img/signuplogin/smiling-woman-wearing-blue-sleeveless-top-2090658.jpg">
+        </ion-avatar>
+
+      </ion-row>
+    </section>
+    <!--  end testimonials  -->
+
+    <!-- start dislaimer -->
+    <section class="disclaimer">
+      <ion-row>
+        <ion-col (click)="showToS()">
+          Terms of Service
+        </ion-col>
+        <ion-col (click)="showPrivacy()">
+          Privacy Policy
+        </ion-col>
+      </ion-row><br><br><br> v{{version}}
+    </section>
+    <!--  end dislaimer  -->
+  </ion-grid>
+
+</ion-content>
